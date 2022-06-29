@@ -14,9 +14,11 @@ def genPrimeOfSize(min, max):
     if min == max:
         print("no prime found in given range")
         return -1
-    rand = random.randint(min, max)
-    x = random.choice((-1, +1))
+    rand = random.randint(min, max) # random number in given range
+    x = random.choice((-1, +1)) # going up or donwarts
     prime = rand
+    
+    searching the prime number
     while not isPrime(prime):
         prime += x
         if prime > max:
