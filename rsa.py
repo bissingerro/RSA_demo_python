@@ -5,8 +5,8 @@ import time
 
 
 # range for prime number generation
-MIN = 2**31 
-MAX = 2**32
+MIN = 2**15
+MAX = 2**16
 
 
 class Keypair:
@@ -95,10 +95,8 @@ def genKeyPair():
     #while k == e:
      #   k = random.randint(1,n)
     
-
-    for d in range(phi_of_n):
-        if (d*e) % phi_of_n  == 1:
-            break
+    d = mul_inverse(e, phi_of_n) % phi_of_n
+    
     print("generated private key, keygen done", time.time()-t)
     return Keypair(e, d, n)
 
