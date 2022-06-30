@@ -1,4 +1,4 @@
 import rsa
 
 if __name__ == "__main__":
-    pass
+    print(rsa.genKeyPair())
