@@ -1,6 +1,17 @@
-import imp
+
 import random
 import math
+
+class Keypair:
+    def __init__(self, public, private, modulus) -> None:
+        self.public = public
+        self.private = private
+        self.modulus = modulus
+    def __repr__(self) -> str:
+        s = f"PubKey: {self.public}, SecKey: {self.private}, Modulus: {self.modulus}"
+        return s
+    def __str__(self) -> str:
+        return self.__repr__()
 
 
 def isPrime(x):
@@ -10,6 +21,11 @@ def isPrime(x):
             return False
     return True
 
+def ggT(a,b):
+    while b:
+        a,b = b, a % b
+    return a
+        
 
 def genPrimeOfSize(min, max):
     """returns a large pseudorandom prime number as int or -1"""
@@ -25,14 +41,41 @@ def genPrimeOfSize(min, max):
     while not isPrime(prime):
         prime += 2
         if prime > max:
+            print("And again")
             genPrimeOfSize(min, rand)
 
     return prime
 
+def mul_inverse(x,n):
+    for i in range(n):
+        if (x*i)%n == 1:
+            return i
+
+MIN = 2**8
+MAX = 2**10
 
 def genKeyPair():
-    p = genPrimeOfSize( 2**10,2**11)
-    q = genPrimeOfSize(2**10, 2**11)
+    p = genPrimeOfSize(MIN,MAX)
+    q = genPrimeOfSize(MIN,MAX)
+    while abs(p - q) < (abs(MIN-MAX)/10):
+        q = genPrimeOfSize(MIN,MAX)
+    print(p, isPrime(p))
+    print(q, isPrime(q))
     n = p * q
+    phi_of_n = (p -1 ) * (q - 1)
+    e = random.randint(max((p,q)), phi_of_n)
+    while ggT(phi_of_n, e) != 1:
+        e += 1
+        if e >= phi_of_n:
+            e = random.randint(1, phi_of_n)
     
-    return p,q
+    #k = random.randint(1000,n)
+    #while k == e:
+     #   k = random.randint(1,n)
+    
+
+    for d in range(phi_of_n):
+        if (d*e) % phi_of_n  == 1:
+            break
+    
+    return Keypair(e, d, n)
