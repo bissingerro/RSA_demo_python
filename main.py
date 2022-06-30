@@ -1,7 +1,7 @@
 import rsa
 
 if __name__ == "__main__":
-
+    rsa.mul_inv(17,6)
     k = rsa.genKeyPair()
     print(k)
     t = 15

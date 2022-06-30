@@ -55,10 +55,21 @@ def genPrimeOfSize(min, max):
 
     return prime
 
-def mul_inverse(x,n):
-    for i in range(n):
-        if (x*i)%n == 1:
-            return i
+def mul_inverse(n,x):
+    a = [n,x]
+    d = [0,0]
+    y = [0,1]
+    i = 2
+    while a[-1] != 0:
+        a.append(a[i-2] % a[i-1])
+        d.append(a[i-2] // a[i-1])
+        i += 1
+    for i in range(2, len(d) -1):
+        y.append(y[i-2] - (d[i]*y[i-1]))
+    return y[-1]
+
+
+
 
 def genKeyPair():
     print("started keygen")
