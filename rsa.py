@@ -1,11 +1,12 @@
 
 import random
 import math
+import time
 
 
 # range for prime number generation
-MIN = 2**8 
-MAX = 2**10
+MIN = 2**31 
+MAX = 2**32
 
 
 class Keypair:
@@ -60,20 +61,25 @@ def mul_inverse(x,n):
             return i
 
 def genKeyPair():
+    print("started keygen")
+    t = time.time()
     p = genPrimeOfSize(MIN,MAX)
     q = genPrimeOfSize(MIN,MAX)
     while abs(p - q) < (abs(MIN-MAX)/10):
         q = genPrimeOfSize(MIN,MAX)
-    print(p, isPrime(p))
-    print(q, isPrime(q))
+    print("generated p:",p, time.time()-t)
+    print("generated q:", p, time.time()-t)
     n = p * q
+    print("n: ", n)
     phi_of_n = (p -1 ) * (q - 1)
+    print("phi of n: ", phi_of_n)
     e = random.randint(max((p,q)), phi_of_n)
     while ggT(phi_of_n, e) != 1:
         e += 1
         if e >= phi_of_n:
             e = random.randint(1, phi_of_n)
-    
+    print("calculated e:", e, time.time()-t)
+                
     #k = random.randint(1000,n)
     #while k == e:
      #   k = random.randint(1,n)
@@ -82,7 +88,7 @@ def genKeyPair():
     for d in range(phi_of_n):
         if (d*e) % phi_of_n  == 1:
             break
-    
+    print("generated private key, keygen done", time.time()-t)
     return Keypair(e, d, n)
 
 def enc(message, pubKey, modulus):
