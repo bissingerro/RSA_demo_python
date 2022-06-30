@@ -21,6 +21,7 @@ def isPrime(x):
             return False
     return True
 
+
 def ggT(a,b):
     while b:
         a,b = b, a % b
@@ -79,3 +80,9 @@ def genKeyPair():
             break
     
     return Keypair(e, d, n)
+
+def enc(message, pubKey, modulus):
+    return (message**pubKey) % modulus
+
+def dec(ciphretext, secKey, modulus):
+    return (ciphretext**secKey) % modulus
