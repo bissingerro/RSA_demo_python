@@ -2,6 +2,12 @@
 import random
 import math
 
+
+# range for prime number generation
+MIN = 2**8 
+MAX = 2**10
+
+
 class Keypair:
     def __init__(self, public, private, modulus) -> None:
         self.public = public
@@ -52,9 +58,6 @@ def mul_inverse(x,n):
     for i in range(n):
         if (x*i)%n == 1:
             return i
-
-MIN = 2**8
-MAX = 2**10
 
 def genKeyPair():
     p = genPrimeOfSize(MIN,MAX)
