@@ -60,6 +60,7 @@ def genPrimeOfSize(min, max):
 
 
 def mul_inverse(n, x):
+    """returns the multiplicative invers of x in mod n group"""
     a = [n, x]
     d = [0, 0]
     y = [0, 1]
@@ -74,6 +75,7 @@ def mul_inverse(n, x):
 
 
 def genKeyPair():
+    """returns a pseudo-random key pair"""
     print("started keygen")
     t = time.time()
     p = genPrimeOfSize(MIN, MAX)
@@ -98,8 +100,10 @@ def genKeyPair():
 
 
 def enc(message, pubKey, modulus):
+    """encrypts message with pubKey and returns chiphretext"""
     return (message**pubKey) % modulus
 
 
 def dec(ciphretext, secKey, modulus):
+    """decrypt ciphretext and returns plain text"""
     return (ciphretext**secKey) % modulus
