@@ -29,7 +29,6 @@ def isPrime(x):
 
 
 def ggT(a,b):
-    """Returns the greatest common divisor of a and b"""
     while b:
         a,b = b, a % b
     return a
