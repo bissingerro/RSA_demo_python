@@ -19,6 +19,14 @@ class Keypair:
     def __str__(self) -> str:
         return self.__repr__()
 
+    def enc(self, message):
+        """returns the encrypted ciphretext"""
+        return (message**self.public) % self.modulus
+
+    def dec(self, ciphretext):
+        """returns decrypted message"""
+        return (ciphretext**self.private) % self.modulus
+
 
 def isPrime(x):
     """returns True if x is prime"""
