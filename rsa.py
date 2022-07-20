@@ -17,7 +17,7 @@ class Keypair:
 
     def __repr__(self) -> str:
         s = f"PubKey: {self.public}, SecKey: {self.private},\
-         Modulus: {self.modulus}"
+Modulus: {self.modulus}"
         return s
 
     def __str__(self) -> str:
